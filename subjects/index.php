@@ -103,9 +103,12 @@ $db = new DBHelper();
                           <?php echo $value["direction"]; ?>
                         </td>
                         <td>
-                          <i class="fa-solid fa-book-bookmark"></i> 155
+                          <i class="fa-solid fa-book-bookmark"></i> <?php echo count($db->getTpicsBysubject($value["id"])) ?>
                         </td>
                         <td>
+                          <a type="button" href="<?php route("monitors?id=" . $value["id"]) ?>" class="btn btn-outline-secondary">
+                            <i class="fa-solid fa-tv"></i>
+                          </a>
                           <a type="button" href="#" class="btn btn-outline-danger">
                             <i class="fa-solid fa-trash-can"></i>
                           </a>

@@ -28,7 +28,39 @@ class DBHelper
   {
     $sql = "SELECT * FROM directions WHERE id=$id";
     if ($result = $this->mysqli->query($sql)) {
-      return $result->fetch_assoc()["title"];
+      try {
+        return $result->fetch_assoc()["title"];
+      } catch (\Throwable $th) {
+        return "undefined";
+      }
+    } else {
+      return "undefined";
+    }
+  }
+
+  function getSubjectById($id)
+  {
+    $sql = "SELECT * FROM subjects WHERE id=$id";
+    if ($result = $this->mysqli->query($sql)) {
+      try {
+        return $result->fetch_assoc()["title"];
+      } catch (\Throwable $th) {
+        return "undefined";
+      }
+    } else {
+      return "undefined";
+    }
+  }
+
+  function getTopicById($id)
+  {
+    $sql = "SELECT * FROM topics WHERE id=$id";
+    if ($result = $this->mysqli->query($sql)) {
+      try {
+        return $result->fetch_assoc()["title"];
+      } catch (\Throwable $th) {
+        return "undefined";
+      }
     } else {
       return "undefined";
     }
@@ -51,6 +83,18 @@ class DBHelper
   {
     $sql = "INSERT INTO `directions` (`title`, `username`, `password`) 
     VALUES ('$title', '$name', '$password')";
+
+    if ($this->mysqli->query($sql) === TRUE) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function addTopic($title, $desc, $image, $dir, $sub)
+  {
+    $sql = "INSERT INTO `topics` (`id`, `title`, `description`, `wallpaper`, `subject_id`, `direction_id`)
+    VALUES (NULL, '$title', '$desc', '$image', '$dir', '$sub');";
 
     if ($this->mysqli->query($sql) === TRUE) {
       return true;
@@ -87,6 +131,36 @@ class DBHelper
     if ($result = $this->mysqli->query($sql)) {
       while ($row = $result->fetch_assoc()) {
         $row["direction"] = $this->getDirectionById($row["direction_id"]);
+        $res[] = $row;
+      }
+      $result->free_result();
+    }
+    return $res;
+  }
+
+  function getTpics()
+  {
+    $res = [];
+    $sql = "SELECT * FROM topics";
+    if ($result = $this->mysqli->query($sql)) {
+      while ($row = $result->fetch_assoc()) {
+        $row["direction"] = $this->getDirectionById($row["subject_id"]);
+        $row["subject"] = $this->getSubjectById($row["direction_id"]);
+        $res[] = $row;
+      }
+      $result->free_result();
+    }
+    return $res;
+  }
+
+  function getTpicsBysubject($id)
+  {
+    $res = [];
+    $sql = "SELECT * FROM topics WHERE direction_id=$id";
+    if ($result = $this->mysqli->query($sql)) {
+      while ($row = $result->fetch_assoc()) {
+        $row["direction"] = $this->getDirectionById($row["subject_id"]);
+        $row["subject"] = $this->getSubjectById($row["direction_id"]);
         $res[] = $row;
       }
       $result->free_result();

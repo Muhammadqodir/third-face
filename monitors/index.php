@@ -1,12 +1,8 @@
 <?php
 require "../utils/utils.php";
-session_start();
-if (!isset($_SESSION["is_login"])) {
-  goToRoute("login");
-  exit();
-}
 require "../utils/db_helper.php";
 $db = new DBHelper();
+$subject_id = $_GET["id"];
 ?>
 
 <!DOCTYPE html>
@@ -41,28 +37,18 @@ $db = new DBHelper();
 
   <div class="slides">
 
-    <div class="mySlides">
-      <img src="https://paultan.org/image/2021/08/Porsche-911-GT2-RS-Clubsport-25-1.jpg" style="object-fit: cover; width: 100%; height: 100vh;" alt="">
-      <div class="bg" style="position: fixed; width: 100%; height: 100vh; top: 0px; left: 0px; right: 0px; bottom: 0px; background: linear-gradient(0deg, #154565 0%, rgba(0,212,255,0) 100%);"></div>
-      <div class="content" style="position: fixed; top: 55%; left: 0px; right: 0px; padding: 24px; color:#ffffff;">
-        <h1>Porsche 911 GT2RS</h1>
-        <p class="subtitle">
-          The 911 GT2 RS Clubsport is powered by a 515kW (700hp) 3.8-litre six-cylinder aluminium twin-turbo horizontally opposed engine, and can deliver maximum performance precisely where required, thanks to its optimised intercooler with redesigned supply and return air feed, as well as its race-optimised water spray system.
-        </p>
+    <?php foreach ($db->getTpicsBysubject($subject_id) as $item) : ?>
+      <div class="mySlides">
+        <img src="<?php echo $item["wallpaper"] ?>" style="object-fit: cover; width: 100%; height: 100vh;" alt="">
+        <div class="bg" style="position: fixed; width: 100%; height: 100vh; top: 0px; left: 0px; right: 0px; bottom: 0px; background: linear-gradient(0deg, #154565 0%, rgba(0,212,255,0) 100%);"></div>
+        <div class="content" style="position: fixed; top: 55%; left: 0px; right: 0px; padding: 24px; color:#ffffff;">
+          <h1><?php echo $item["title"] ?></h1>
+          <p class="subtitle">
+            <?php echo $item["description"] ?>
+          </p>
+        </div>
       </div>
-    </div>
-
-
-    <div class="mySlides">
-      <img src="https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/image_1290x726/dam/US-local/Press-Releases/2023/new_911_st/0276_010400_london_AKOS0460_V01_A3_RGB.jpg/jcr:content/0276_010400_london_AKOS0460_V01_A3_RGB.jpg" style="object-fit: cover; position: fixefixed; width: 100%; height: 100vh;" alt="">
-      <div class="bg" style="position: fixed; width: 100%; height: 100vh; top: 0px; left: 0px; right: 0px; bottom: 0px; background: linear-gradient(0deg, #154565 0%, rgba(0,212,255,0) 100%);"></div>
-      <div class="content" style="position: absolute; top: 55%; left: 0px; right: 0px; padding: 24px; color:#ffffff;">
-        <h1>Porsche 911 Sports Classic</h1>
-        <p class="subtitle">
-          The 911 Sport Classic is the most powerful manual 911 available today. The gearbox has an auto-blip function that compensates for speed differences between the gears with a brief burst of revs when shifting down.
-        </p>
-      </div>
-    </div>
+    <?php endforeach; ?>
 
     <!-- <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
     <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button> -->

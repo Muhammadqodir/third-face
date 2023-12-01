@@ -10,16 +10,20 @@ require "../../utils/db_helper.php";
 
 if (
   isset($_POST["title"])
-  && isset($_POST["name"])
-  && isset($_POST["password"])
+  && isset($_POST["direction"])
+  && isset($_POST["subject"])
+  && isset($_POST["description"])
+  && isset($_POST["image"])
 ) {
   if (
     $_POST["title"] != ""
-    && $_POST["name"] != ""
-    && $_POST["password"] != ""
+    && $_POST["direction"] != ""
+    && $_POST["subject"] != ""
+    && $_POST["description"] != ""
+    && $_POST["image"] != ""
   ) {
     $db = new DBHelper();
-    $db->addDirection($_POST["title"], $_POST["name"], $_POST["password"]);
+    $db->addTopic($_POST["title"], str_replace("'", "''", $_POST["description"]), $_POST["image"], $_POST["direction"], $_POST["subject"]);
     goToRoute("topics");
   } else {
     goBackWithMessage("Barcha malumotlarni kiriting");

@@ -85,26 +85,22 @@ $db = new DBHelper();
                   <thead>
                     <tr>
                       <th>Nomi</th>
-                      <th>Foydalanuvchi</th>
-                      <th>Paroli</th>
-                      <th>Fanlar soni</th>
+                      <th>Yonalish</th>
+                      <th>Fan</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody class="table-border-bottom-0">
-                    <?php foreach ($db->getDirections() as $value) : ?>
+                    <?php foreach ($db->getTpics() as $value) : ?>
                       <tr>
                         <td>
                           <?php echo $value["title"]; ?>
                         </td>
                         <td>
-                          <?php echo $value["username"]; ?>
+                          <?php echo $value["direction"]; ?>
                         </td>
                         <td>
-                          <?php echo $value["password"]; ?>
-                        </td>
-                        <td>
-                          <i class="fa-solid fa-book"></i> 155
+                          <?php echo $value["subject"]; ?>
                         </td>
                         <td>
                           <a type="button" href="#" class="btn btn-outline-danger">

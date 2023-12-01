@@ -75,7 +75,7 @@ $db = new DBHelper();
                                             <i class="fa-solid fa-building-columns"></i>
                                         </div>
                                         <span class="fw-medium d-block mb-1">Yonalishlar</span>
-                                        <h3 class="card-title mb-2">2</h3>
+                                        <h3 class="card-title mb-2"><?php echo count($db->getDirections()) ?></h3>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ $db = new DBHelper();
                                             <i class="fa-solid fa-book"></i>
                                         </div>
                                         <span class="fw-medium d-block mb-1">Fanlar</span>
-                                        <h3 class="card-title mb-2">15</h3>
+                                        <h3 class="card-title mb-2"><?php echo count($db->getSubjects()) ?></h3>
                                         <!-- <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +72.80%</small> -->
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@ $db = new DBHelper();
                                             <i class="fa-solid fa-book-bookmark"></i>
                                         </div>
                                         <span class="fw-medium d-block mb-1">Mavzular</span>
-                                        <h3 class="card-title mb-2">125</h3>
+                                        <h3 class="card-title mb-2"><?php echo count($db->getTpics()) ?></h3>
                                         <!-- <small class="text-success fw-medium"><i class="bx bx-up-arrow-alt"></i> +72.80%</small> -->
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@ $db = new DBHelper();
                                             <i class="fa-solid fa-tv"></i>
                                         </div>
                                         <span class="fw-medium d-block mb-1">Monitorlar</span>
-                                        <h3 class="card-title mb-2">16</h3>
+                                        <h3 class="card-title mb-2"><?php echo count($db->getSubjects()) ?></h3>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@ $db = new DBHelper();
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <div class="d-flex flex-column align-items-center gap-1">
-                                                <h2 class="mb-2">125</h2>
+                                                <h2 class="mb-2"><?php echo count($db->getTpics()) ?></h2>
                                             </div>
                                             <div id="orderStatisticsChart"></div>
                                         </div>
@@ -217,67 +217,6 @@ $db = new DBHelper();
             axisColor = config.colors.axisColor;
             borderColor = config.colors.borderColor;
 
-            // Profit Report Line Chart
-            // --------------------------------------------------------------------
-            const profileReportChartEl = document.querySelector('#profileReportChart'),
-                profileReportChartConfig = {
-                    chart: {
-                        height: 80,
-                        // width: 175,
-                        type: 'line',
-                        toolbar: {
-                            show: false
-                        },
-                        dropShadow: {
-                            enabled: true,
-                            top: 10,
-                            left: 5,
-                            blur: 3,
-                            color: config.colors.warning,
-                            opacity: 0.15
-                        },
-                        sparkline: {
-                            enabled: true
-                        }
-                    },
-                    grid: {
-                        show: false,
-                        padding: {
-                            right: 8
-                        }
-                    },
-                    colors: [config.colors.warning],
-                    dataLabels: {
-                        enabled: false
-                    },
-                    stroke: {
-                        width: 5,
-                        curve: 'smooth'
-                    },
-                    series: [{
-                        data: [110, 270, 145, 245, 205, 285]
-                    }],
-                    xaxis: {
-                        show: false,
-                        lines: {
-                            show: false
-                        },
-                        labels: {
-                            show: false
-                        },
-                        axisBorder: {
-                            show: false
-                        }
-                    },
-                    yaxis: {
-                        show: false
-                    }
-                };
-            if (typeof profileReportChartEl !== undefined && profileReportChartEl !== null) {
-                const profileReportChart = new ApexCharts(profileReportChartEl, profileReportChartConfig);
-                profileReportChart.render();
-            }
-
             // Order Statistics Chart
             // --------------------------------------------------------------------
             const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
@@ -287,8 +226,8 @@ $db = new DBHelper();
                         width: 130,
                         type: 'donut'
                     },
-                    labels: ['Electronic', 'Sports', 'Decor', 'Fashion'],
-                    series: [85, 15, 50, 50],
+                    labels: [],
+                    series: [<?php echo count($db->getSubjects()) ?>],
                     colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
                     stroke: {
                         width: 5,
@@ -297,7 +236,7 @@ $db = new DBHelper();
                     dataLabels: {
                         enabled: false,
                         formatter: function(val, opt) {
-                            return parseInt(val) + '%';
+                            return '100%';
                         }
                     },
                     legend: {
@@ -345,9 +284,9 @@ $db = new DBHelper();
                                         show: true,
                                         fontSize: '0.8125rem',
                                         color: axisColor,
-                                        label: 'Weekly',
+                                        label: '<?php echo $db->getDirections()[0]["title"] ?>',
                                         formatter: function(w) {
-                                            return '38%';
+                                            return '100%';
                                         }
                                     }
                                 }

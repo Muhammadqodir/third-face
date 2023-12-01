@@ -45,7 +45,7 @@
       </a>
     </li>
 
-    <li class="menu-header small text-uppercase">
+    <!-- <li class="menu-header small text-uppercase">
       <span class="menu-header-text">Monitorlar</span>
     </li>
 
@@ -54,7 +54,7 @@
         <i class="menu-icon fa-solid fa-tv"></i>
         <div>Monitorlar</div>
       </a>
-    </li>
+    </li> -->
 
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">Sozlamalar</span>
