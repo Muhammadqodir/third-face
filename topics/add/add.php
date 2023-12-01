@@ -1,4 +1,5 @@
 <?php
+require "../../utils/utils.php";
 session_start();
 if (!isset($_SESSION["is_login"])) {
   goToRoute("login");
@@ -6,7 +7,6 @@ if (!isset($_SESSION["is_login"])) {
 }
 
 require "../../utils/db_helper.php";
-require "../../utils/utils.php";
 
 if (
   isset($_POST["title"])
@@ -20,7 +20,7 @@ if (
   ) {
     $db = new DBHelper();
     $db->addDirection($_POST["title"], $_POST["name"], $_POST["password"]);
-    goToRoute("directions");
+    goToRoute("topics");
   } else {
     goBackWithMessage("Barcha malumotlarni kiriting");
   }
