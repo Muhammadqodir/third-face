@@ -54,7 +54,7 @@ $subject_id = $_GET["id"];
     <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button> -->
     <button class="w3-button w3-black w3-display-right" style="top: 19px;" onclick="fullScrean()">&#x26F6;</button>
   </div>
-  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://abduvoitov.uz/projects/third-face/monitors/" style="width: 100px; height: 100px; position: absolute; top: 0px; left: 0px;">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://abduvoitov.uz/projects/third-face/monitors/?id=<?php echo $_GET["id"] ?>" style="width: 100px; height: 100px; position: absolute; top: 0px; left: 0px;">
 
   <script>
     var slideIndex = 1;
